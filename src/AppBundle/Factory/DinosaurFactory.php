@@ -49,7 +49,7 @@ class DinosaurFactory
         $availableLengths = [
             'huge' => ['min' => Dinosaur::HUGE, 'max' => 100],
             'omg' => ['min' => Dinosaur::HUGE, 'max' => 100],
-            'large' => ['min' => Dinosaur::LARGE, 'max' => Dinosaur::HUGE - 1],
+            'large' => ['min' => Dinosaur::LARGE + 1, 'max' => Dinosaur::HUGE - 1],
         ];
         $minLength = 1;
         $maxLength = Dinosaur::LARGE - 1;
