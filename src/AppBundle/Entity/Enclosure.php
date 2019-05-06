@@ -4,6 +4,7 @@
 namespace AppBundle\Entity;
 
 
+use AppBundle\Exception\NotABuffetException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,11 +35,20 @@ class Enclosure
 
     /**
      * @param Dinosaur $dinosaur
+     * @throws NotABuffetException
      */
     public function addDinosaur(Dinosaur $dinosaur)
     {
+        if (!$this->canAddDinosaur($dinosaur)) {
+           throw new NotABuffetException();
+        }
+
         $this->dinosaurs[] = $dinosaur;
     }
 
+    private function canAddDinosaur(Dinosaur $dinosaur)
+    {
+        return count($this->getDinosaurs()) == 0 || $this->getDinosaurs()->first()->isCarnivorous() == $dinosaur->isCarnivorous();
+    }
 
 }
