@@ -25,6 +25,7 @@ class EnclosureBuilderServiceIntegrationTest extends KernelTestCase
 
       public function testItBuildsEnclosureWithDefaultSpecifications()
       {
+          $this->markTestSkipped();
 
           /** @var EnclosureBuilderService $enclosureBuilderService */
           $enclosureBuilderService = self::$kernel->getContainer()->get('test.'.EnclosureBuilderService::class);
