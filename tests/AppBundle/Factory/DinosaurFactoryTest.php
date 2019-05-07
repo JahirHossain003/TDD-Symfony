@@ -6,6 +6,7 @@ namespace Tests\AppBundle\Factory;
 
 use AppBundle\Entity\Dinosaur;
 use AppBundle\Factory\DinosaurFactory;
+use AppBundle\Service\DinosaurLengthDeterminator;
 use PHPUnit\Framework\TestCase;
 
 class DinosaurFactoryTest extends TestCase
@@ -15,7 +16,8 @@ class DinosaurFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->factory = new DinosaurFactory();
+        $lengthDetarminator = $this->createMock(DinosaurLengthDeterminator::class);
+        $this->factory = new DinosaurFactory($lengthDetarminator);
     }
 
     public function testItGrowsAVelociraptor()
@@ -48,16 +50,10 @@ class DinosaurFactoryTest extends TestCase
     /**
      * @dataProvider dinosaurSpecificationTest
      */
-    public function testItGrowsADinosourFromSpecification(string $spec, bool $isExpectedLarge, bool
+    public function testItGrowsADinosourFromSpecification(string $spec, bool
     $isExpectedCarnivorous)
     {
         $dinosaur = $this->factory->growFromSpecification($spec);
-
-        if ($isExpectedLarge) {
-            $this->assertGreaterThan(Dinosaur::LARGE, $dinosaur->getLength());
-        } else {
-            $this->assertLessThan(Dinosaur::LARGE, $dinosaur->getLength());
-        }
 
         $this->assertSame($isExpectedCarnivorous, $dinosaur->isCarnivorous());
     }
@@ -66,29 +62,10 @@ class DinosaurFactoryTest extends TestCase
     {
         return [
           // specification, is large, is carnivorous
-            ['large carnivorous dinosaur',true,true],
-            "Default Dinosaur" => ['Hack dinosour park',false,false],
-            ['large vegiterian dinosaur',true,false],
+            ['large carnivorous dinosaur',true],
+            "Default Dinosaur" => ['Hack dinosour park',false],
+            ['large vegiterian dinosaur',false],
         ];
     }
 
-    /**
-     * @dataProvider hugeDinosaurSpecificationTest
-     */
-    public function testItGrowsHugeDinosaurFromSpecification(string $spec)
-    {
-        $dinosaur = $this->factory->growFromSpecification($spec);
-
-        $this->assertGreaterThan(Dinosaur::HUGE, $dinosaur->getLength());
-    }
-
-    public function hugeDinosaurSpecificationTest()
-    {
-        return [
-          ['Huge Dinosaur'],
-          ['Huge Dino'],
-          ['Huge'],
-          ['OMG']
-        ];
-    }
 }
