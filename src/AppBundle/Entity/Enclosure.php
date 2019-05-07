@@ -91,7 +91,7 @@ class Enclosure
     /**
      * @param Security $security
      */
-    private function addSecurity(Security $security)
+    public function addSecurity(Security $security)
     {
         $this->securities[] = $security;
     }
