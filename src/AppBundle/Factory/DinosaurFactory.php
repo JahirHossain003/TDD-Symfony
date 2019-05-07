@@ -47,8 +47,8 @@ class DinosaurFactory
     private function getLengthFromSpecification(string $specification): int
     {
         $availableLengths = [
-            'huge' => ['min' => Dinosaur::HUGE, 'max' => 100],
-            'omg' => ['min' => Dinosaur::HUGE, 'max' => 100],
+            'huge' => ['min' => Dinosaur::HUGE + 1, 'max' => 100],
+            'omg' => ['min' => Dinosaur::HUGE + 1, 'max' => 100],
             'large' => ['min' => Dinosaur::LARGE + 1, 'max' => Dinosaur::HUGE - 1],
         ];
         $minLength = 1;
