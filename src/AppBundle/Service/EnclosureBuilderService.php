@@ -42,7 +42,7 @@ class EnclosureBuilderService
         $this->entityManager->persist($enclosure);
 
         $this->entityManager->flush();
-        
+
         return $enclosure;
     }
 
@@ -61,7 +61,7 @@ class EnclosureBuilderService
     {
         for ($i = 0; $i < $numberOfDinosaurs; $i++) {
             $lengths = ['small', 'large', 'huge'];
-            $diets = ['herbivore', 'carnivorous'];
+            $diets = ['herbivore'];
             $length = $lengths[array_rand($lengths)];
             $diet = $diets[array_rand($diets)];
             $specification = "{$length} {$diet} dinosaur";
